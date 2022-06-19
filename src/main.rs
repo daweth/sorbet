@@ -15,7 +15,7 @@ async fn execute_tx(
     Json(payload): Json<TransactionRequest>,
 ) -> Json<TransactionReceipt> {
     let receipt = send_transaction(state.client.clone(), payload).await;
-    return Json(receipt.unwrap());
+    Json(receipt.unwrap())
 }
 
 #[tokio::main]

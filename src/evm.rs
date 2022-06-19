@@ -34,7 +34,10 @@ pub async fn generate_local_provider() -> Option<Provider<Http>> {
 
 pub async fn generate_local_client(
 ) -> Result<SignerMiddleware<Provider<Http>, LocalWallet>, Box<dyn std::error::Error>> {
-    let wallet = dotenv::var("PRIVATE_KEY").unwrap().parse::<LocalWallet>()?.with_chain_id(43113u64);
+    let wallet = dotenv::var("PRIVATE_KEY")
+        .unwrap()
+        .parse::<LocalWallet>()?
+        .with_chain_id(43113u64);
     let provider = Provider::<Http>::try_from(dotenv::var("RPC_URL").unwrap())?;
     let client = ethers::middleware::SignerMiddleware::new(provider, wallet);
     Ok(client)
